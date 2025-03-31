@@ -31,11 +31,8 @@ export class Request {
         return res.data;
       },
       (err: AxiosError) => {
-        console.error("请求异常 ===> ", err.message);
-        notification.error({
-          message: `请求异常 ===> ${err.message}`,
-        });
-        return { code: BAD_REQ_CODE, data: {} };
+        notification.error({ message: `请求异常 ===> ${err.message}` });
+        throw Error(err.message);
       }
     );
   }

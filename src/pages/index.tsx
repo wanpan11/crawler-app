@@ -7,7 +7,9 @@ const { Option } = Select;
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
+
   const [platform, setPlatform] = useState("bili");
+  const [type, setType] = useState("detail");
   const [targetIds, setTargetIds] = useState("");
 
   const handleClick = async () => {
@@ -22,8 +24,18 @@ const Home = () => {
         platform,
         target_ids: targetIds.split("\n").map(id => id.trim()),
       });
-      console.log(data);
-      message.success("请求成功");
+
+      // 创建下载链接
+      const url = window.URL.createObjectURL(new Blob([data as unknown as BlobPart]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${platform}_data.zip`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      message.success("下载成功");
     } catch (error) {
       console.error(error);
       message.error("请求失败");
@@ -37,13 +49,19 @@ const Home = () => {
       <Card title={"配置"}>
         <div className="flex flex-col gap-4">
           <Select disabled={loading} value={platform} onChange={setPlatform} style={{ width: 200, marginRight: 16 }}>
-            <Option value="xhs">小红书</Option>
+            <Option value="bili">哔哩哔哩</Option>
+            {/* <Option value="xhs">小红书</Option>
             <Option value="dy">抖音</Option>
             <Option value="ks">快手</Option>
-            <Option value="bili">哔哩哔哩</Option>
             <Option value="wb">微博</Option>
             <Option value="tieba">贴吧</Option>
-            <Option value="zhihu">知乎</Option>
+            <Option value="zhihu">知乎</Option> */}
+          </Select>
+
+          <Select disabled={loading} value={type} onChange={setType} style={{ width: 200, marginRight: 16 }}>
+            <Option value="detail">评论</Option>
+            {/* <Option value="bili">作者</Option>
+            <Option value="bili">关键词</Option> */}
           </Select>
 
           <Input.TextArea
@@ -51,7 +69,7 @@ const Home = () => {
             disabled={loading}
             className="min-h-[200px] w-1/2"
             autoSize={{ minRows: 3 }}
-            placeholder="输入target_ids，每行一个"
+            placeholder="输入需要抓去的视频/文章 ID 每行一个"
             onChange={e => setTargetIds(e.target.value)}
           />
 
