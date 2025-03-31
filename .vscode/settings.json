@@ -1,0 +1,14 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "cSpell.words": [
+    "attributify",
+    "cssnano",
+    "datetime",
+    "ianvs",
+    "rsbuild",
+    "rsdoctor",
+    "rspack",
+    "tailwindcss",
+    "unocss"
+  ]
+}
