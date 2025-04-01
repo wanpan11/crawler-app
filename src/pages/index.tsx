@@ -50,10 +50,10 @@ const Home = () => {
         <div className="flex flex-col gap-4">
           <Select disabled={loading} value={platform} onChange={setPlatform} style={{ width: 200, marginRight: 16 }}>
             <Option value="bili">哔哩哔哩</Option>
-            {/* <Option value="xhs">小红书</Option>
             <Option value="dy">抖音</Option>
-            <Option value="ks">快手</Option>
             <Option value="wb">微博</Option>
+            {/* <Option value="xhs">小红书</Option>
+            <Option value="ks">快手</Option>
             <Option value="tieba">贴吧</Option>
             <Option value="zhihu">知乎</Option> */}
           </Select>
