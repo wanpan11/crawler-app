@@ -22,7 +22,10 @@ const Home = () => {
     try {
       const data = await companyService.python({
         platform,
-        target_ids: targetIds.split("\n").map(id => id.trim()),
+        target_ids: targetIds
+          .split("\n")
+          .map(id => id.trim())
+          .filter(id => !!id),
       });
 
       // 创建下载链接
@@ -52,8 +55,8 @@ const Home = () => {
             <Option value="bili">哔哩哔哩</Option>
             <Option value="dy">抖音</Option>
             <Option value="wb">微博</Option>
-            {/* <Option value="xhs">小红书</Option>
-            <Option value="ks">快手</Option>
+            <Option value="xhs">小红书</Option>
+            {/* <Option value="ks">快手</Option>
             <Option value="tieba">贴吧</Option>
             <Option value="zhihu">知乎</Option> */}
           </Select>
@@ -69,7 +72,7 @@ const Home = () => {
             disabled={loading}
             className="min-h-[200px] w-1/2"
             autoSize={{ minRows: 3 }}
-            placeholder="输入需要抓去的视频/文章 ID 每行一个"
+            placeholder="输入需要抓去的视频/文章 ID 每行一个, 小红书请填写链接"
             onChange={e => setTargetIds(e.target.value)}
           />
 
