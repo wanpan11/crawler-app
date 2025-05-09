@@ -37,7 +37,7 @@ export class Request {
     );
   }
 
-  send<T>(url: string, method = "get", data?: any, config?: AxiosRequestConfig): Promise<AxiosRes<T>> {
+  send<T>(url: string, method = "get", data?: any, config?: AxiosRequestConfig): Promise<T> {
     const axiosConfig = { ...config };
     axiosConfig.url = url;
     axiosConfig.method = method;

@@ -29,16 +29,23 @@ const Home = () => {
       });
 
       // 创建下载链接
-      const url = window.URL.createObjectURL(new Blob([data as unknown as BlobPart]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `${platform}_data.zip`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
+      // const url = window.URL.createObjectURL(new Blob([data as unknown as BlobPart]));
+      // const link = document.createElement("a");
+      // link.href = url;
+      // link.setAttribute("download", `${platform}_data.zip`);
+      // document.body.appendChild(link);
+      // link.click();
+      // document.body.removeChild(link);
+      // window.URL.revokeObjectURL(url);
 
-      message.success("下载成功");
+      // message.success("下载成功");
+
+      if (data.status === -1) {
+        message.error(data.message);
+        return;
+      }
+
+      message.success("任务执行成功，可前往后台查看");
     } catch (error) {
       console.error(error);
       message.error("请求失败");
@@ -49,7 +56,17 @@ const Home = () => {
 
   return (
     <div className="w-[1100px] m-auto">
-      <Card title={"配置"}>
+      <Card
+        title={
+          <div className="flex justify-between">
+            <div>配置</div>
+
+            <a href="http://m.sky.yh/gather/crawler" target="_blank" rel="noreferrer">
+              后台地址
+            </a>
+          </div>
+        }
+      >
         <div className="flex flex-col gap-4">
           <Select disabled={loading} value={platform} onChange={setPlatform} style={{ width: 200, marginRight: 16 }}>
             <Option value="bili">哔哩哔哩</Option>
